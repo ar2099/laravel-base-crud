@@ -1,16 +1,12 @@
 <form action="{{ route("comics.store")}}" method="POST">
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
+ @csrf
+    <input type="text" name="title" class="form-control" id="title" placeholder="title" required>
+  <input type="text" name="description" class="form-control" id="description" placeholder="description" required>
+  <input type="text" name="thumb" class="form-control" id="thumb" placeholder="link immagine" required>
+  <input type="number" name="price" class="form-control" id="price" placeholder="price" required>
+  <input type="text" name="series" class="form-control" id="series" placeholder="series" required>
+  <input type="date" name="sale_date" class="form-control" id="sale_date" placeholder="sale date" required>
+  <input type="text" name="type" class="form-control" id="type" placeholder="type" required>
+  
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
