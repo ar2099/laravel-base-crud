@@ -40,11 +40,17 @@ class ComicsController extends Controller
      */
     public function store(Request $request)
     {
+            $request->validate(
+            [
+                'title' => 'required'
+            ]
+        );
         $data = $request->all();
         dump($data);
         $new_comic = new Comic();
             $new_comic->fill($data);
             $new_comic->save();
+            return redirect()->route("comics.show", $new_comic) ;
     }
 
     /**
@@ -65,9 +71,10 @@ class ComicsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Comic $comic)
     {
         //
+        return view( 'edit', compact('comic') );
     }
 
     /**
@@ -77,9 +84,21 @@ class ComicsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Comic $comic)
     {
         //
+
+         $request->validate(
+            [
+                'title' => 'required'
+            ]
+        );
+
+        $data = $request->all();
+        $comic->update($data);
+
+        
+        return redirect()->route( 'comics.show', $comic )->with('message', "Hai aggiornato con successo: $comic->name");
     }
 
     /**
@@ -88,8 +107,10 @@ class ComicsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comic $comic)
     {
         //
+        $comic->delete();
+        return redirect()->route( 'comics.index' )->with('message', "Hai eliminato con successo: $comic->title");
     }
 }

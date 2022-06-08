@@ -11,6 +11,11 @@
     
 @endforeach
 </div> --}}
+@if ( session('message') )
+    <div class="alert alert-success">
+        {{ session('message') }}
+    </div>
+@endif
 <a href=" {{route("comics.create") }}" class="btn btn-primary">Create</a>
 <table class="table">
   <thead>
@@ -38,7 +43,19 @@
     <td>{{$comic->series}}</td>
     <td>{{$comic->sale_date}}</td>
     <td>{{$comic->type}}</td>
-    <td><a href=" {{route("comics.show", $comic->id) }}" class="btn btn-primary">Scheda</a></td>
+    <td>
+      <a href=" {{route("comics.show", $comic->id) }}" class="btn btn-primary">Scheda</a>
+    <a href=" {{route("comics.edit", $comic->id) }}" class="btn btn-primary">EDIT</a>
+    <form action="{{ route( 'comics.destroy', $comic->id ) }}"
+                    method="POST"
+                    class="delete-form"
+                    data-name="{{ $comic->title }}"
+                    >
+                    @method('DELETE')
+                    @csrf
+                    <button class="btn btn-danger" type="submit">Elimina</button>
+                </form>
+  </td>
     </tr>
 @endforeach
   </tbody>
